@@ -13,11 +13,13 @@ class BlogTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ArticleView(
-                      url: url,
-                    )));
+          context,
+          MaterialPageRoute(
+            builder: (context) => ArticleView(
+              url: url,
+            ),
+          ),
+        );
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 16),
