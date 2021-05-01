@@ -7,6 +7,7 @@ import 'package:newsApp/components/categoryTile.dart';
 import 'package:newsApp/helper/data.dart';
 import 'package:newsApp/helper/news.dart';
 import 'package:http/http.dart' as http;
+import 'package:newsApp/constants.dart' as cst;
 
 class Home extends StatefulWidget {
   @override
@@ -14,7 +15,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  // ignore: deprecated_member_use
   List<CategoryModel> categories = new List<CategoryModel>();
+  // ignore: deprecated_member_use
   List<ArticleModel> articles = new List<ArticleModel>();
   bool _loading = true;
 
@@ -72,10 +75,18 @@ class _HomeState extends State<Home> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Daily'),
+            Text(
+              'Daily',
+              style: TextStyle(
+                fontSize: 22 * cst.responsiveCofficient(context),
+              ),
+            ),
             Text(
               'News',
-              style: TextStyle(color: Colors.blue),
+              style: TextStyle(
+                color: Colors.blue,
+                fontSize: 22 * cst.responsiveCofficient(context),
+              ),
             )
           ],
         ),
@@ -90,8 +101,9 @@ class _HomeState extends State<Home> {
                   children: <Widget>[
                     ///Categories
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      height: 80,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 10 * cst.responsiveCofficient(context)),
+                      height: 80 * cst.responsiveCofficient(context),
                       child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
@@ -114,7 +126,11 @@ class _HomeState extends State<Home> {
 
                     /// News Bolgs
                     Container(
-                        padding: EdgeInsets.only(top: 16, right: 10, left: 10),
+                        padding: EdgeInsets.only(
+                          top: 16 * cst.responsiveCofficient(context),
+                          right: 10 * cst.responsiveCofficient(context),
+                          left: 10 * cst.responsiveCofficient(context),
+                        ),
                         child: ListView.builder(
                             physics: ClampingScrollPhysics(),
                             shrinkWrap: true,

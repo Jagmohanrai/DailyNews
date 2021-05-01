@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsApp/views/article_view.dart';
+import 'package:newsApp/constants.dart' as cst;
 
 class BlogTile extends StatelessWidget {
   final String imageUrl, title, desc, url;
@@ -22,28 +23,32 @@ class BlogTile extends StatelessWidget {
         );
       },
       child: Container(
-        margin: EdgeInsets.only(bottom: 16),
+        margin: EdgeInsets.only(bottom: 30 * cst.responsiveCofficient(context)),
         child: Column(
           children: <Widget>[
             ClipRRect(
-                borderRadius: BorderRadius.circular(6),
+                borderRadius: BorderRadius.circular(
+                    10 * cst.responsiveCofficient(context)),
                 child: Image.network(imageUrl)),
             SizedBox(
-              height: 8,
+              height: 10 * cst.responsiveCofficient(context),
             ),
             Text(
               title,
               style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 20 * cst.responsiveCofficient(context),
                   color: Colors.black87,
                   fontWeight: FontWeight.w500),
             ),
             SizedBox(
-              height: 8,
+              height: 8 * cst.responsiveCofficient(context),
             ),
             Text(
               desc,
-              style: TextStyle(color: Colors.black54),
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 16 * cst.responsiveCofficient(context),
+              ),
             )
           ],
         ),

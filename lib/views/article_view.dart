@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:newsApp/constants.dart' as cst;
 
 class ArticleView extends StatefulWidget {
   final String url;
@@ -22,7 +23,8 @@ class _ArticleViewState extends State<ArticleView> {
             Opacity(
               opacity: 0,
               child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 16 * cst.responsiveCofficient(context)),
                   child: Icon(Icons.access_alarm)),
             )
           ],
@@ -31,10 +33,18 @@ class _ArticleViewState extends State<ArticleView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('Daily'),
+                Text(
+                  'Daily',
+                  style: TextStyle(
+                    fontSize: 22 * cst.responsiveCofficient(context),
+                  ),
+                ),
                 Text(
                   'News',
-                  style: TextStyle(color: Colors.blue),
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 22 * cst.responsiveCofficient(context),
+                  ),
                 )
               ],
             ),

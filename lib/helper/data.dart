@@ -1,6 +1,7 @@
 import '../Models/CategoryModel.dart';
 
 List<CategoryModel> getCategories() {
+  // ignore: deprecated_member_use
   List<CategoryModel> category = new List<CategoryModel>();
   CategoryModel categoryModel = new CategoryModel();
 
