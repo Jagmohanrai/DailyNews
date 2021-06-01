@@ -6,10 +6,11 @@ import 'package:http/http.dart' as http;
 class News {
   String category;
   News({this.category});
-  List<ArticleModel> news = [];
-  String url =
-      "http://newsapi.org/v2/top-headlines?country=in&category=Technology&apiKey=b62abbf777b64c56997280c44a97c0bd";
+
   Future<void> getNews() async {
+    String url =
+        "http://newsapi.org/v2/top-headlines?country=in&category=Technology&apiKey=b62abbf777b64c56997280c44a97c0bd";
+    List<ArticleModel> news = [];
     var response = await http.get(url);
 
     var jsonData = jsonDecode(response.body);
