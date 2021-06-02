@@ -20,53 +20,14 @@ class _HomeState extends State<Home> {
   List<CategoryModel> categories = new List<CategoryModel>();
   // ignore: deprecated_member_use
   List<ArticleModel> articles = new List<ArticleModel>();
-  bool _loading = false;
   final newsbloc = NewsBloc();
 
   @override
   void initState() {
     super.initState();
     categories = getCategories();
-    newsbloc.eventSink.add(NewsActions.Fetch);
+    newsbloc.eventSink.add(NewsActions.Technology);
   }
-
-  // getNews() async {
-  //   News newsClass = News();
-  //   await newsClass.getNews();
-  //   articles = newsClass.news;
-  //   setState(() {
-  //     _loading = false;
-  //   });
-  // }
-
-  // getCatNews(String cat) async {
-  //   List<ArticleModel> news = [];
-  //   String url =
-  //       "http://newsapi.org/v2/top-headlines?country=in&category=$cat&apiKey=b62abbf777b64c56997280c44a97c0bd";
-
-  //   var response = await http.get(url);
-
-  //   var jsonData = jsonDecode(response.body);
-
-  //   if (jsonData["status"] == "ok") {
-  //     jsonData["articles"].forEach((element) {
-  //       if (element["urlToImage"] != null && element["description"] != null) {
-  //         ArticleModel articleModel = ArticleModel(
-  //             title: element["title"],
-  //             author: element["author"],
-  //             content: element["content"],
-  //             description: element["description"],
-  //             url: element["url"],
-  //             urlToImage: element["urlToImage"]);
-  //         news.add(articleModel);
-  //         setState(() {
-  //           _loading = false;
-  //           articles = news;
-  //         });
-  //       }
-  //     });
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -97,37 +58,56 @@ class _HomeState extends State<Home> {
         child: Container(
           child: Column(
             children: <Widget>[
-              ///Categories
-              // Container(
-              //   padding: EdgeInsets.symmetric(
-              //       horizontal: 10 * cst.responsiveCofficient(context)),
-              //   height: 80 * cst.responsiveCofficient(context),
-              //   child: ListView.builder(
-              //       shrinkWrap: true,
-              //       scrollDirection: Axis.horizontal,
-              //       itemCount: categories.length,
-              //       itemBuilder: (context, index) {
-              //         return InkWell(
-              //           onTap: () {
-              //             setState(() {
-              //               _loading = true;
-              //               getCatNews(categories[index].categoryName);
-              //             });
-              //           },
-              //           child: CategoryTile(
-              //             categoryName: categories[index].categoryName,
-              //             imageUrl: categories[index].imageUrl,
-              //           ),
-              //         );
-              //       }),
-              // ),
+              Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 10 * cst.responsiveCofficient(context)),
+                height: 80 * cst.responsiveCofficient(context),
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: categories.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          if (categories[index].categoryName == "Technology") {
+                            newsbloc.eventSink.add(NewsActions.Technology);
+                          } else if (categories[index].categoryName ==
+                              "Entertainment") {
+                            newsbloc.eventSink.add(NewsActions.Entertainment);
+                          } else if (categories[index].categoryName ==
+                              "General") {
+                            newsbloc.eventSink.add(NewsActions.General);
+                          } else if (categories[index].categoryName ==
+                              "Health") {
+                            newsbloc.eventSink.add(NewsActions.Health);
+                          } else if (categories[index].categoryName ==
+                              "Science") {
+                            newsbloc.eventSink.add(NewsActions.Science);
+                          } else if (categories[index].categoryName ==
+                              "Sports") {
+                            newsbloc.eventSink.add(NewsActions.Sports);
+                          } else if (categories[index].categoryName ==
+                              "Business") {
+                            newsbloc.eventSink.add(NewsActions.Business);
+                          }
+                        },
+                        child: CategoryTile(
+                          categoryName: categories[index].categoryName,
+                          imageUrl: categories[index].imageUrl,
+                        ),
+                      );
+                    }),
+              ),
 
               /// News Bolgs
               StreamBuilder<List<ArticleModel>>(
                   stream: newsbloc.newsStream,
                   builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      print(snapshot.data.length);
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.hasData) {
                       return ListView.builder(
                           physics: ClampingScrollPhysics(),
                           shrinkWrap: true,

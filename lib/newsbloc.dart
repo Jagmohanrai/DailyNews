@@ -4,7 +4,15 @@ import 'package:http/http.dart' as http;
 
 import 'package:newsApp/Models/ArticleModel.dart';
 
-enum NewsActions { Fetch }
+enum NewsActions {
+  Technology,
+  Entertainment,
+  General,
+  Health,
+  Science,
+  Sports,
+  Business
+}
 
 class NewsBloc {
   final _newsStreamController = StreamController<List<ArticleModel>>();
@@ -17,9 +25,51 @@ class NewsBloc {
 
   NewsBloc() {
     eventStream.listen((event) async {
-      if (event == NewsActions.Fetch) {
+      if (event == NewsActions.Technology) {
         try {
-          var result = await getNews();
+          var result = await getNews(cat: 'Technology');
+          newsSink.add(result);
+        } on Exception catch (e) {
+          newsSink.addError("something went wrong");
+        }
+      } else if (event == NewsActions.Business) {
+        try {
+          var result = await getNews(cat: 'Business');
+          newsSink.add(result);
+        } on Exception catch (e) {
+          newsSink.addError("something went wrong");
+        }
+      } else if (event == NewsActions.Entertainment) {
+        try {
+          var result = await getNews(cat: 'Entertainment');
+          newsSink.add(result);
+        } on Exception catch (e) {
+          newsSink.addError("something went wrong");
+        }
+      } else if (event == NewsActions.General) {
+        try {
+          var result = await getNews(cat: 'General');
+          newsSink.add(result);
+        } on Exception catch (e) {
+          newsSink.addError("something went wrong");
+        }
+      } else if (event == NewsActions.Health) {
+        try {
+          var result = await getNews(cat: 'Health');
+          newsSink.add(result);
+        } on Exception catch (e) {
+          newsSink.addError("something went wrong");
+        }
+      } else if (event == NewsActions.Science) {
+        try {
+          var result = await getNews(cat: 'Science');
+          newsSink.add(result);
+        } on Exception catch (e) {
+          newsSink.addError("something went wrong");
+        }
+      } else if (event == NewsActions.Sports) {
+        try {
+          var result = await getNews(cat: 'Sports');
           newsSink.add(result);
         } on Exception catch (e) {
           newsSink.addError("something went wrong");
@@ -33,9 +83,9 @@ class NewsBloc {
     _newsStreamController.close();
   }
 
-  Future<List<ArticleModel>> getNews() async {
+  Future<List<ArticleModel>> getNews({String cat}) async {
     String url =
-        "http://newsapi.org/v2/top-headlines?country=in&category=Technology&apiKey=b62abbf777b64c56997280c44a97c0bd";
+        "http://newsapi.org/v2/top-headlines?country=in&category=$cat&apiKey=b62abbf777b64c56997280c44a97c0bd";
     List<ArticleModel> news = [];
     var response = await http.get(url);
 
